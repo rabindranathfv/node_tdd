@@ -1,0 +1,26 @@
+{
+  "name": "documents",
+  "version": "1.0.0",
+  "description": "api rest node using tdd",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "tdd",
+    "jest",
+    "express"
+  ],
+  "author": "Rabindranath Ferreira",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
