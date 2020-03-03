@@ -10,14 +10,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-const usersHandlers = users({ axios });
+const usersCtrl = users({ axios });
 
-app.get('/',  usersHandlers.get);
+app.get('/',  usersCtrl.get);
 
-app.post('/', usersHandlers.post);
+app.post('/', usersCtrl.post);
 
-app.put('/:id', usersHandlers.put);
+app.put('/:id', usersCtrl.put);
 
-app.delete('/:id', usersHandlers.delete);
+app.delete('/:id', usersCtrl.delete);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`server listening on port ${port}!`));
