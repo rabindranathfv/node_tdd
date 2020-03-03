@@ -2,9 +2,9 @@
   "name": "documents",
   "version": "1.0.0",
   "description": "api rest node using tdd",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start-dev": "nodemon index",
+    "start-dev": "nodemon src/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
