@@ -1,6 +1,6 @@
 const controllers = require('./users');
 
-describe('Endpoints ', () => {
+describe(' Users Endpoints ', () => {
     let axios;
     let res;
     beforeEach(async() => {
