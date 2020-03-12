@@ -28,8 +28,8 @@ describe('Should pass Authenticated middelware', () => {
         };
         const next = jest.fn();
         authenticated(req, res, next);
-        console.log('MOCK RES',res.status.mock.calls);
-        console.log('MOCK RES',res.json.mock.calls);
+        // console.log('MOCK RES',res.status.mock.calls);
+        // console.log('MOCK RES',res.json.mock.calls);
         expect(req.header.mock.calls).toEqual([
            ['user_id'] 
         ]);

@@ -45,11 +45,37 @@ describe(' Post Endpoints', () => {
         });
 
         it('Should update a postById', async() => {
-
+            const body = {
+                body: 'request body',
+                params: {
+                    id: 2
+                }
+            };
+            await postsCtrl({ axios }).put(body, res);
+            expect(res.status.mock.calls).toEqual([[200]]);
+            expect(res.json.mock.calls).toEqual([[{
+                ok: true,
+                id: 2
+            }]]);
+            expect(res.json.mock.calls.length).toBe(1);
+            expect(axios.put.mock.calls[axios.put.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts/2', 'request body']);
         });
 
         it('Should delete a postById', async() => {
-
+            const body = {
+                body: 'request body',
+                params: {
+                    id: 2
+                }
+            };
+            await postsCtrl({ axios }).delete(body, res);
+            expect(res.status.mock.calls).toEqual([[200]]);
+            expect(res.json.mock.calls).toEqual([[{
+                ok: true,
+                id: 2
+            }]]);
+            expect(res.json.mock.calls.length).toBe(1);
+            expect(axios.delete.mock.calls[axios.delete.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts/2']);
         });
     });
 });
