@@ -1,5 +1,3 @@
-const usersCtrl = require('../users/users');
-
 const handlersPost = ({ axios }) => ({
     get: async(req, res) => {
         const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
@@ -10,10 +8,18 @@ const handlersPost = ({ axios }) => ({
     },
     post: async(req, res) => {
         const { body } = req;
-        const {data} = await axios.post('https://jsonplaceholder.typicode.com/posts', body);
-        res.status(200).json({
-            ok: true,
-            post: data
+        const { data: users } = await axios.get('https://jsonplaceholder.typicode.com/users'); 
+        const isAdmin = users.find( u => u.id === req.body.userId ); 
+        if (isAdmin) { 
+            const {data} = await axios.post('https://jsonplaceholder.typicode.com/posts', body);
+            return res.status(200).json({
+                ok: true,
+                post: data
+            });
+        } 
+        res.status(500).json({
+            ok: false,
+            message: 'not is admin'
         });
     },
     put: async(req, res) => {

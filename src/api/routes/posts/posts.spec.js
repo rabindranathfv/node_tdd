@@ -63,12 +63,25 @@ describe(' Post Endpoints', () => {
             expect(axios.post.mock.calls[axios.post.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts', post]);
         });
 
+        it('Should can not create post if not is admin ', async() => {
+            req.body.userId = 11;
+            await postsCtrl({ axios}).post(req , res);
+            const isAdmin = mockUsers.find( u => u.id === req.body.userId);
+            expect(postsCtrl.isAdmin).toBeFalsy();
+            expect(res.status.mock.calls).toEqual([[500]]);
+            expect(res.json.mock.calls).toEqual([[{
+                ok: false,
+                message: 'not is admin'
+            }]]);
+            expect(res.json.mock.calls.length).toBe(1);
+            
+        });
+
         it('Should update a postById', async() => {
             req['params'] = {
                 id: 2
             };
             await postsCtrl({ axios }).put(req, res);
-            console.log('AXIOS PUT:::', axios.put.mock.calls);
             expect(res.status.mock.calls).toEqual([[200]]);
             expect(res.json.mock.calls).toEqual([[{
                 ok: true,
