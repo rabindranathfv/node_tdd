@@ -3,7 +3,7 @@ describe('Should pass Authenticated middelware', () => {
     it('Should be a admin with id 1', () => {
         // se agregar mock return Value tomando el id 1 como el unico q puede hacer esta operacion
         const req = {
-            header: jest.fn().mockReturnValue(1)
+            header: jest.fn().mockReturnValue('1')
         };
         const res = {
             status: jest.fn(),

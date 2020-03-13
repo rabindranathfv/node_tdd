@@ -3,12 +3,31 @@ const postsCtrl = require('./post');
 describe(' Post Endpoints', () => {
     let axios;
     let res;
+    let post;
+    let mockUsers;
     beforeEach(async() => {
+        mockUsers = [
+            {
+              "id": 1,
+            },
+            {
+              "id": 2,
+            },
+            {
+              "id": 3,
+            }
+        ];  
+        post = {
+            userId: 1,
+            id: 101,
+            title: "titulo",
+            body: "body post"
+        }
         axios = {
             //  defino el mock de la peticion del axios
-            get: jest.fn().mockResolvedValue({ data: 1 }),
-            post: jest.fn().mockResolvedValue({ data: 1 }),
-            put: jest.fn().mockResolvedValue({ params: { id: 2 }, data: 2 }),
+            get: jest.fn().mockResolvedValue({ data: mockUsers }),
+            post: jest.fn().mockResolvedValue({ data: post }),
+            put: jest.fn().mockResolvedValue({ params: { id: 2 }, data: post }),
             delete: jest.fn()
         };
         res = {
@@ -16,59 +35,57 @@ describe(' Post Endpoints', () => {
             send: jest.fn(),
             json: jest.fn().mockReturnThis()
         };
+        req = {
+            body: post
+        };
     });
 
     describe('Posts', () => {
         it('Should get all posts', async() => {
-            await postsCtrl({ axios }).get({}, res);
+            await postsCtrl({ axios }).get(req , res);
             expect(res.status.mock.calls).toEqual([[200]]);
             expect(res.json.mock.calls).toEqual([[{
                 ok: true,
-                posts: 1
+                posts: mockUsers
             }]]);
             expect(res.json.mock.calls.length).toBe(1);
             expect(axios.get.mock.calls[res.status.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts']);
         });
 
         it('Should post new post', async() => {
-            const body = {
-                body: 'request body'
-            };
-            await postsCtrl({ axios}).post(body,res);
+            await postsCtrl({ axios}).post(req , res);
             expect(res.status.mock.calls).toEqual([[200]]);
             expect(res.json.mock.calls).toEqual([[{
                 ok: true,
-                posts: 1
+                post: post
             }]]);
             expect(res.json.mock.calls.length).toBe(1);
-            expect(axios.post.mock.calls[axios.post.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts', 'request body']);
+            expect(axios.post.mock.calls[axios.post.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts', post]);
         });
 
         it('Should update a postById', async() => {
-            const body = {
-                body: 'request body',
-                params: {
-                    id: 2
-                }
+            req['params'] = {
+                id: 2
             };
-            await postsCtrl({ axios }).put(body, res);
+            await postsCtrl({ axios }).put(req, res);
+            console.log('AXIOS PUT:::', axios.put.mock.calls);
             expect(res.status.mock.calls).toEqual([[200]]);
             expect(res.json.mock.calls).toEqual([[{
                 ok: true,
-                id: 2
+                post: post
             }]]);
             expect(res.json.mock.calls.length).toBe(1);
-            expect(axios.put.mock.calls[axios.put.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts/2', 'request body']);
+            expect(axios.put.mock.calls[axios.put.mock.calls.length - 1]).toEqual(['https://jsonplaceholder.typicode.com/posts/2', post ]);
         });
 
         it('Should delete a postById', async() => {
-            const body = {
-                body: 'request body',
+            const reqDelete = {
+                req,
                 params: {
                     id: 2
                 }
             };
-            await postsCtrl({ axios }).delete(body, res);
+            await postsCtrl({ axios }).delete(reqDelete, res);
             expect(res.status.mock.calls).toEqual([[200]]);
             expect(res.json.mock.calls).toEqual([[{
                 ok: true,

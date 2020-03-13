@@ -1,6 +1,8 @@
+const usersCtrl = require('../users/users');
+
 const handlersPost = ({ axios }) => ({
     get: async(req, res) => {
-        const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts');
+        const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
         res.status(200).json({
             ok: true,
             posts: data
@@ -11,17 +13,16 @@ const handlersPost = ({ axios }) => ({
         const {data} = await axios.post('https://jsonplaceholder.typicode.com/posts', body);
         res.status(200).json({
             ok: true,
-            posts: data
+            post: data
         });
-
     },
     put: async(req, res) => {
         const { id } = req.params;
         const { body } = req;
-        await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, body);
+        const {data} = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, body);
         res.status(200).json({
             ok: true,
-            id
+            post: data
         });
     },
     delete: async(req, res) => {

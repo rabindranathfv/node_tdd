@@ -77,7 +77,6 @@ describe(' Users Endpoints ', () => {
                     id: 6
                 }
             };
-            console.log(body);
             await controllers({ axios }).delete(body, res);
             // check if the status of response is 200
             expect(res.status.mock.calls).toEqual([[200]]);
