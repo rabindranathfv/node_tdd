@@ -1,9 +1,16 @@
 const handlersPost = ({ axios }) => ({
     get: async(req, res) => {
         const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        res.status(200).json({
-            ok: true,
-            posts: data
+        if (data && data.length > 0) {
+            return res.status(200).json({
+                ok: true,
+                posts: data
+            });
+        }
+        res.status(500).json({
+            ok: false,
+            message: 'do not exist post',
+            posts: []
         });
     },
     post: async(req, res) => {

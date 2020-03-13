@@ -42,7 +42,7 @@ describe(' Post Endpoints', () => {
 
     describe('Posts', () => {
         it('Should get all posts', async() => {
-            await postsCtrl({ axios }).get(req , res);
+            await postsCtrl({ axios }).get({} , res);
             expect(res.status.mock.calls).toEqual([[200]]);
             expect(res.json.mock.calls).toEqual([[{
                 ok: true,
@@ -74,7 +74,7 @@ describe(' Post Endpoints', () => {
                 message: 'not is admin'
             }]]);
             expect(res.json.mock.calls.length).toBe(1);
-            
+
         });
 
         it('Should update a postById', async() => {
