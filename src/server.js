@@ -1,7 +1,6 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3000;
 const bodyParser = require('body-parser');
 
 const { authenticated } = require('./api/middlewares/index');
@@ -28,5 +27,4 @@ app.post('/posts', authenticated, postsCtrl.post);
 app.put('/posts/:id', authenticated, postsCtrl.put);
 app.delete('/posts/:id', authenticated, postsCtrl.delete);
 
-
-app.listen(port, () => console.log(`server listening on port ${port}!`));
+module.exports = app;

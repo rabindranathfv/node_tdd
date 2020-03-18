@@ -4,7 +4,7 @@
   "description": "api rest node using tdd",
   "main": "server.js",
   "scripts": {
-    "start-dev": "nodemon src/server",
+    "start-dev": "nodemon index.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"
@@ -20,7 +20,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "@types/jest": "^25.1.3",
